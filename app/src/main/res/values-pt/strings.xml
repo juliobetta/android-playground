@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Playground</string>
+    <string name="hello_world">Alô Mundo!</string>
+    <string name="action_settings">Configurações</string>
+    <string name="exit">Sair</string>
+    <string name="exit_message">Você tem certeza que deseja sair?</string>
+    <string name="get_data">HTTP GET</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+
+</resources>
