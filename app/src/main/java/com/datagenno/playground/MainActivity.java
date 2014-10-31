@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
     private EditText responseText;
     private EditText diseaseId;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +32,8 @@ public class MainActivity extends Activity {
 
         ActiveAndroid.initialize(this);
 
-        exitButton    = (Button)   findViewById(R.id.exitButton);
-        httpGetButton = (Button)   findViewById(R.id.httpGet);
-        responseText  = (EditText) findViewById(R.id.reponseText);
-        diseaseId     = (EditText) findViewById(R.id.diseaseId);
-
-        exitButton.setOnClickListener(exit());
-        httpGetButton.setOnClickListener(getDisease());
+        initializeUI();
+        setUIEvents();
     }
 
 
@@ -64,6 +60,26 @@ public class MainActivity extends Activity {
 
 
     /**
+     * Initialize UI Elements
+     */
+    private void initializeUI() {
+        exitButton    = (Button)   findViewById(R.id.exitButton);
+        httpGetButton = (Button)   findViewById(R.id.httpGet);
+        responseText  = (EditText) findViewById(R.id.reponseText);
+        diseaseId     = (EditText) findViewById(R.id.diseaseId);
+    }
+
+
+    /**
+     * Set UI Events
+     */
+    private void setUIEvents() {
+        exitButton.setOnClickListener(exit());
+        httpGetButton.setOnClickListener(getDisease());
+    }
+
+
+    /**
      * Get data from URL
      * @return View.OnClickListener
      */
@@ -72,9 +88,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String     path       = diseaseId.getText().toString();
-                Controller controller = new Diseases(MainActivity.this);
+                Controller diseases = new Diseases(MainActivity.this);
 
-                controller.show(path);
+                diseases.show(path);
             }
         };
     }

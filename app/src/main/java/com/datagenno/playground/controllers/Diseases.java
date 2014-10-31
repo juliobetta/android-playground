@@ -6,7 +6,6 @@ import android.widget.Toast;
 
 import com.datagenno.playground.R;
 import com.datagenno.playground.models.Disease;
-import com.datagenno.playground.services.DiseaseService;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.ArrayList;
@@ -15,19 +14,26 @@ import java.util.Map;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.http.GET;
+import retrofit.http.Path;
 
 /**
  * Created by juliobetta on 10/31/14.
  */
 public class Diseases extends Controller {
 
-    private DiseaseService service;
+    private API service;
+
+    public interface API {
+        @GET("/diseases/{id}.json")
+        void showDisease(@Path("id") String disease, Callback<Disease> callback);
+    }
 
 
     public Diseases(Activity activity) {
         super(activity);
 
-        this.service = this.rest.create(DiseaseService.class);
+        this.service = this.rest.create(API.class);
     }
 
 
