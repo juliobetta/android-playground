@@ -12,11 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.activeandroid.ActiveAndroid;
 import com.datagenno.playground.models.Disease;
 import com.datagenno.playground.services.DiseaseService;
 
+import retrofit.Callback;
 import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class MainActivity extends Activity {
@@ -24,20 +26,22 @@ public class MainActivity extends Activity {
     private Button exitButton;
     private Button httpGetButton;
     private EditText responseText;
+    private EditText diseaseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        ActiveAndroid.initialize(this);
+//        ActiveAndroid.initialize(this);
 
         exitButton    = (Button)   findViewById(R.id.exitButton);
         httpGetButton = (Button)   findViewById(R.id.httpGet);
         responseText  = (EditText) findViewById(R.id.reponseText);
+        diseaseId     = (EditText) findViewById(R.id.diseaseId);
 
         exitButton.setOnClickListener(exit());
-        httpGetButton.setOnClickListener(getDisease(7));
+        httpGetButton.setOnClickListener(getDisease());
     }
 
 
@@ -63,50 +67,36 @@ public class MainActivity extends Activity {
     }
 
 
-    public EditText getResponseText() {
-        return this.responseText;
-    }
-
-
     /**
      * Get data from URL
-     * @param id disease' ID
      * @return View.OnClickListener
      */
-    private View.OnClickListener getDisease(final int id) {
+    private View.OnClickListener getDisease() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String uri = diseaseId.getText().toString();
+
                 RestAdapter rest = new RestAdapter.Builder()
                         .setEndpoint("http://www.datagenno.com")
                         .build();
 
                 DiseaseService service = rest.create(DiseaseService.class);
-                Disease        disease = service.showDisease(id);
+                service.showDisease(uri, new Callback<Disease>() {
+                    @Override
+                    public void success(Disease disease, Response response) {
+                        //for(Iterator<Object> sign = disease.signs.iterator(); sign.hasNext();) {
+                        //    responseText.append(sign.next().toString());
+                        //}
+                        responseText.append(disease.name);
+                    }
 
-                Toast.makeText(MainActivity.this, disease.name, Toast.LENGTH_LONG).show();
-            }
-        };
-    }
-
-
-    /**
-     * Get data from URL
-     * @param url
-     * @return View.OnClickListener
-     */
-    private View.OnClickListener getData(final String url) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Http http = new Http(MainActivity.this);
-
-                try {
-                    http.sendGet(url);
-                } catch(Exception e) {
-                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG);
-                }
-
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG)
+                             .show();
+                    }
+                });
             }
         };
     }
