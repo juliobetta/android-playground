@@ -13,3 +13,5 @@ public interface DiseaseService {
     @GET("/diseases/{id}.json")
     void showDisease(@Path("id") String disease, Callback<Disease> callback);
 }
+
+

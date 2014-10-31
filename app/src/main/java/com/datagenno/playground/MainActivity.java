@@ -12,13 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.datagenno.playground.models.Disease;
-import com.datagenno.playground.services.DiseaseService;
-
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import com.activeandroid.ActiveAndroid;
+import com.datagenno.playground.controllers.Controller;
+import com.datagenno.playground.controllers.Diseases;
 
 
 public class MainActivity extends Activity {
@@ -33,7 +29,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-//        ActiveAndroid.initialize(this);
+        ActiveAndroid.initialize(this);
 
         exitButton    = (Button)   findViewById(R.id.exitButton);
         httpGetButton = (Button)   findViewById(R.id.httpGet);
@@ -75,28 +71,10 @@ public class MainActivity extends Activity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uri = diseaseId.getText().toString();
+                String     path       = diseaseId.getText().toString();
+                Controller controller = new Diseases(MainActivity.this);
 
-                RestAdapter rest = new RestAdapter.Builder()
-                        .setEndpoint("http://www.datagenno.com")
-                        .build();
-
-                DiseaseService service = rest.create(DiseaseService.class);
-                service.showDisease(uri, new Callback<Disease>() {
-                    @Override
-                    public void success(Disease disease, Response response) {
-                        //for(Iterator<Object> sign = disease.signs.iterator(); sign.hasNext();) {
-                        //    responseText.append(sign.next().toString());
-                        //}
-                        responseText.append(disease.name);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_LONG)
-                             .show();
-                    }
-                });
+                controller.show(path);
             }
         };
     }
