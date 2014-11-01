@@ -6,8 +6,9 @@
     <string name="action_settings">Settings</string>
     <string name="exit">Exit</string>
     <string name="exit_message">Are you really want to exit?</string>
-    <string name="get_data">HTTP GET</string>
+    <string name="get_data">GET DATA</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="title_activity_disease">Signs / Symptoms</string>
 
 </resources>

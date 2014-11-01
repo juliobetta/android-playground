@@ -4,26 +4,20 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
-import com.datagenno.playground.controllers.Controller;
-import com.datagenno.playground.controllers.Diseases;
 
 
 public class MainActivity extends Activity {
+    public static final String EXTRA_MESSAGE = "com.datagenno.playground.MESSAGE";
     private final Context context = this;
-    private Button exitButton;
-    private Button httpGetButton;
-    private EditText responseText;
-    private EditText diseaseId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +25,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_my);
 
         ActiveAndroid.initialize(this);
-
-        initializeUI();
-        setUIEvents();
     }
 
 
@@ -60,70 +51,41 @@ public class MainActivity extends Activity {
 
 
     /**
-     * Initialize UI Elements
-     */
-    private void initializeUI() {
-        exitButton    = (Button)   findViewById(R.id.exitButton);
-        httpGetButton = (Button)   findViewById(R.id.httpGet);
-        responseText  = (EditText) findViewById(R.id.reponseText);
-        diseaseId     = (EditText) findViewById(R.id.diseaseId);
-    }
-
-
-    /**
-     * Set UI Events
-     */
-    private void setUIEvents() {
-        exitButton.setOnClickListener(exit());
-        httpGetButton.setOnClickListener(getDisease());
-    }
-
-
-    /**
      * Get data from URL
-     * @return View.OnClickListener
      */
-    private View.OnClickListener getDisease() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String     path       = diseaseId.getText().toString();
-                Controller diseases = new Diseases(MainActivity.this);
+    public void getDisease(View view) {
+        EditText diseaseId  = (EditText) findViewById(R.id.diseaseId);
+        Intent   intent     = new Intent(this, DiseaseActivity.class);
+        String   path       = diseaseId.getText().toString();
 
-                diseases.show(path);
-            }
-        };
+        intent.putExtra(EXTRA_MESSAGE, path);
+        startActivity(intent);
     }
 
 
     /**
      * Show alert dialog
      */
-    private View.OnClickListener exit() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+    public void exit(View view) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
 
-                alertBuilder.setTitle(R.string.exit)
-                            .setMessage(R.string.exit_message)
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    MainActivity.this.finish();
-                                }
-                            })
-                            .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
+        alertBuilder.setTitle(R.string.exit)
+                .setMessage(R.string.exit_message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.this.finish();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
 
-                AlertDialog alert = alertBuilder.create();
-                alert.show();
-            }
-        };
+        AlertDialog alert = alertBuilder.create();
+        alert.show();
     }
 }

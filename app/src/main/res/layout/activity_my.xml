@@ -1,5 +1,6 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MyActivity"
@@ -8,74 +9,60 @@
     android:padding="10dp">
 
 
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/content">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/content">
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.08"
+            android:id="@+id/linearLayout">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+            <EditText
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.08"
-                android:id="@+id/buttons"
-                android:baselineAligned="false">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="HTTP GET"
-                    android:id="@+id/httpGet"
-                    android:layout_weight="1"
-                    android:layout_gravity="top" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/exit"
-                    android:id="@+id/exitButton"
-                    android:layout_gravity="top"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="70dp"
-                android:layout_weight="0.08"
-                android:id="@+id/linearLayout">
-
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/diseaseId"
-                    android:inputType="text"
-                    android:text="761_fabry-disease" />
-
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    android:id="@+id/reponseText"
-                    android:layout_marginTop="33dp" />
-            </LinearLayout>
+                android:id="@+id/diseaseId"
+                android:inputType="text"
+                android:text="761_fabry-disease" />
 
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.08"
+            android:id="@+id/buttons"
+            android:baselineAligned="false">
 
-</RelativeLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/exit"
+                android:id="@+id/exitButton"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:onClick="exit"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/get_data"
+                android:id="@+id/httpGet"
+                android:layout_weight="1"
+                android:layout_gravity="top"
+                android:onClick="getDisease"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

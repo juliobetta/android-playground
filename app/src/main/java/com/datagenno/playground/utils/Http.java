@@ -1,4 +1,4 @@
-package com.datagenno.playground;
+package com.datagenno.playground.utils;
 
 /**
  * Created by juliobetta on 10/30/14.
@@ -6,7 +6,6 @@ package com.datagenno.playground;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.EditText;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -84,9 +83,6 @@ public class Http {
 
         @Override
         protected void onPostExecute(String result) {
-
-            EditText text = (EditText) this.activity.findViewById(R.id.reponseText);
-            text.setText(result);
             //Do anything with response..
         }
     }
