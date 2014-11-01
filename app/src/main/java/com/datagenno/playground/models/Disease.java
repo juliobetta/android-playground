@@ -19,9 +19,6 @@ public class Disease extends Model {
     @Column(name = "description")
     public String description;
 
-    @Column(name = "id", index = true)
-    public Integer id;
-
     @Column(name = "name_sanitized")
     public String name_sanitized;
 

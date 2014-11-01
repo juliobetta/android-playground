@@ -1,7 +1,7 @@
 package com.datagenno.playground.controllers;
 
 import android.app.Activity;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.datagenno.playground.R;
@@ -38,7 +38,7 @@ public class Diseases extends Controller {
 
 
     public void show(String path) {
-        final EditText responseText = (EditText) activity.findViewById(R.id.reponseText);
+        final TextView responseText = (TextView) activity.findViewById(R.id.signs);
 
         this.service.showDisease(path, new Callback<Disease>() {
             @Override
