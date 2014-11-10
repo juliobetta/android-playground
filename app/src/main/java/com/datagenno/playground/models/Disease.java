@@ -30,4 +30,9 @@ public class Disease extends Model {
 
     @Column(name = "images")
     public Object images;
+
+
+    public String toString() {
+        return this.name;
+    }
 }

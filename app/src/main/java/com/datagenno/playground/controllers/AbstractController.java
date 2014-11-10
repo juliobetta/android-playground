@@ -18,6 +18,11 @@ public abstract class AbstractController {
     protected final Activity activity;
     protected final ProgressDialog progress;
 
+    public AbstractController() {
+        this.activity = null;
+        this.progress = null;
+    }
+
     public AbstractController(Activity activity) {
         this.activity = activity;
         this.rest     = new RestAdapter.Builder().setEndpoint(BASEPATH).build();
@@ -25,8 +30,6 @@ public abstract class AbstractController {
 
         this.progress.setMessage(activity.getString(R.string.loading));
     }
-
-    public abstract void show(String path);
 
 
     /**
