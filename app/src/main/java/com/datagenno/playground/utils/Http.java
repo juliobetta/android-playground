@@ -32,7 +32,6 @@ public class Http {
     // HTTP GET request
     public void sendGet(String url) throws Exception {
         AsyncTask httpTask = new HttpTask(new HttpGet(url), this.activity).execute();
-
     }
 
     // HTTP POST request

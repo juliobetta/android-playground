@@ -1,4 +1,4 @@
-package com.datagenno.playground.controllers;
+package com.datagenno.playground;
 
 import android.app.Application;
 import com.activeandroid.ActiveAndroid;
@@ -7,8 +7,8 @@ import com.activeandroid.ActiveAndroid;
  * Created by juliobetta on 11/10/14.
  * @see <a href="http://rominirani.com/android-application-class/">Android Application Class</a>
  */
-public class AppController extends Application {
-    private static AppController instance;
+public class ApplicationController extends Application {
+    private static ApplicationController instance;
 
 
     @Override
@@ -20,7 +20,7 @@ public class AppController extends Application {
     }
 
 
-    public static synchronized AppController getInstance() {
+    public static synchronized ApplicationController getInstance() {
         return instance;
     }
 }

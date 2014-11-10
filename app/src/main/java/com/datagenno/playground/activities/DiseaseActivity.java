@@ -1,4 +1,4 @@
-package com.datagenno.playground;
+package com.datagenno.playground.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.datagenno.playground.controllers.AbstractController;
+import com.datagenno.playground.R;
 import com.datagenno.playground.controllers.DiseasesController;
 
 
@@ -21,7 +21,7 @@ public class DiseaseActivity extends Activity {
         Intent intent = getIntent();
         String path   = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-        AbstractController diseases = new DiseasesController(DiseaseActivity.this);
+        DiseasesController diseases = new DiseasesController(DiseaseActivity.this);
 
         diseases.show(path);
     }

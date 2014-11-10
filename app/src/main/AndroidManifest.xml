@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".controllers.AppController"
+        android:name=".ApplicationController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -15,7 +15,7 @@
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
 
         <activity
-            android:name="com.datagenno.playground.MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +24,9 @@
         </activity>
 
         <activity
-            android:name="com.datagenno.playground.DiseaseActivity"
+            android:name=".activities.DiseaseActivity"
             android:label="@string/title_activity_disease"
-            android:parentActivityName="com.datagenno.playground.MainActivity">
+            android:parentActivityName=".activities.MainActivity">
         </activity>
     </application>
 
