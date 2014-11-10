@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Playground</string>
-    <string name="hello_world">Alô Mundo!</string>
+    <string name="loading">Carregando...</string>
     <string name="action_settings">Configurações</string>
     <string name="exit">Sair</string>
     <string name="exit_message">Você tem certeza que deseja sair?</string>
