@@ -1,36 +1,21 @@
 package com.datagenno.playground.controllers;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.datagenno.playground.R;
-import com.datagenno.playground.models.Disease;
-import com.google.gson.internal.LinkedTreeMap;
 
-import java.util.ArrayList;
-import java.util.Map;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit.http.GET;
-import retrofit.http.Path;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by juliobetta on 10/31/14.
  */
 public class DiseasesController extends AbstractController {
-
-    private API service;
-
-
-    /**
-     * Retrofit API
-     */
-    public interface API {
-        @GET("/diseases/{id}.json")
-        void showDisease(@Path("id") String disease, Callback<Disease> callback);
-    }
 
 
     /**
@@ -39,7 +24,6 @@ public class DiseasesController extends AbstractController {
      */
     public DiseasesController(Activity activity) {
         super(activity);
-        this.service = this.rest.create(API.class);
     }
 
 
@@ -50,42 +34,52 @@ public class DiseasesController extends AbstractController {
     public void show(String path) {
         progress.show();
 
-        this.service.showDisease(path, new Callback<Disease>() {
-            @Override
-            public void success(Disease disease, Response response) {
-                listSigns(disease);
-                progress.hide();
-                progress.dismiss();
-            }
+        // Tag used to cancel the request
+        String tag_json_obj = "disease_obj_req";
+        String url          = BASEPATH + "/diseases/" + path + ".json";
 
-            @Override
-            public void failure(RetrofitError error) {
-                showFailureMessage(error.getMessage());
-            }
-        });
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        JSONObject signs = response.getJSONObject("signs");
+                        listSigns(signs);
+                        progress.hideAndDismiss();
+                    } catch(JSONException e) {
+                        Log.d(AppController.TAG, e.getMessage());
+                    }
+                }
+            } , onResponseError()
+        );
+
+        AppController.getInstance().addToRequestQueue(request, tag_json_obj);
     }
 
 
     /**
      * List disease's signs
-     * @param disease
+     * @param signs
      */
-    private void listSigns(Disease disease) {
+    private void listSigns(JSONObject signs) {
         TextView responseText = (TextView) activity.findViewById(R.id.signs);
-        LinkedTreeMap signs   = (LinkedTreeMap) disease.signs;
 
-        for(Object group : signs.entrySet()) {
-            Map.Entry<String, ArrayList> groupSet = (Map.Entry) group;
+        for (int i = 0; i < signs.length(); i++) {
 
-            // prints out the group name
-            responseText.append(groupSet.getKey() + "\n");
-
-            for(Object sign : groupSet.getValue()) {
-                LinkedTreeMap signObject = (LinkedTreeMap) sign;
-
-                // prints out the sign name
-                responseText.append("\t" + signObject.get("sinal").toString() + "\n");
-            }
+            Log.d(AppController.TAG, signs.toString());
         }
+//        for(Object group : signs) {
+//            Map.Entry<String, ArrayList> groupSet = (Map.Entry) group;
+//
+//            // prints out the group name
+//            responseText.append(groupSet.getKey() + "\n");
+//
+//            for(Object sign : groupSet.getValue()) {
+//                LinkedTreeMap signObject = (LinkedTreeMap) sign;
+//
+//                // prints out the sign name
+//                responseText.append("\t" + signObject.get("sinal").toString() + "\n");
+//            }
+//        }
     }
 }
