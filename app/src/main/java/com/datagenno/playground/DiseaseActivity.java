@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.datagenno.playground.controllers.Controller;
-import com.datagenno.playground.controllers.Diseases;
+import com.datagenno.playground.controllers.AbstractController;
+import com.datagenno.playground.controllers.DiseasesController;
 
 
 public class DiseaseActivity extends Activity {
@@ -21,9 +21,16 @@ public class DiseaseActivity extends Activity {
         Intent intent = getIntent();
         String path   = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-        Controller diseases = new Diseases(this);
+        AbstractController diseases = new DiseasesController(DiseaseActivity.this);
 
         diseases.show(path);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
     }
 
 
