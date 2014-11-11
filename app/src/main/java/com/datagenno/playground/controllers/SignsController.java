@@ -46,6 +46,9 @@ public class SignsController extends AbstractController {
                 Object images = signObject.get("imagens");
                 signModel.setImages(images == null ? null : images.toString());
 
+                Object videos = signObject.get("videos");
+                signModel.setVideos(videos == null ? null : videos.toString());
+
                 signAdapter.add(signModel);
             }
         }
@@ -63,9 +66,9 @@ public class SignsController extends AbstractController {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int pos, long id) {
-                final Object item = adapter.getItemAtPosition(pos);
+                final Sign sign = (Sign) adapter.getItemAtPosition(pos);
 
-                Toast.makeText(activity, item.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, sign.toString(), Toast.LENGTH_SHORT).show();
             }
         };
     }
