@@ -24,7 +24,7 @@ public abstract class AbstractController {
     /**
      * Add language param to each request
      */
-    private static final RequestInterceptor COOKIES_REQUEST_INTERCEPTOR = new RequestInterceptor() {
+    private static final RequestInterceptor REQUEST_INTERCEPTOR = new RequestInterceptor() {
         @Override
         public void intercept(RequestFacade request) {
             request.addQueryParam("language", AppController.getLanguage());
@@ -43,7 +43,7 @@ public abstract class AbstractController {
 
         this.rest = new RestAdapter.Builder()
             .setEndpoint(BASEPATH)
-            .setRequestInterceptor(COOKIES_REQUEST_INTERCEPTOR)
+            .setRequestInterceptor(REQUEST_INTERCEPTOR)
             .build();
 
         this.progress.setMessage(activity.getString(R.string.loading));
