@@ -6,7 +6,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.activeandroid.Model;
 import com.datagenno.playground.R;
 import com.datagenno.playground.adapters.SignAdapter;
 import com.datagenno.playground.models.Group;
@@ -32,7 +31,7 @@ public class SignsController extends AbstractController {
      */
     public void list(LinkedTreeMap signs) {
 
-        SignAdapter signAdapter = new SignAdapter(activity, new ArrayList<Model>());
+        SignAdapter signAdapter = new SignAdapter(activity, new ArrayList<Object>());
         ListView signsList      = (ListView) activity.findViewById(R.id.signsList);
 
         for(Object group : signs.entrySet()) {
@@ -43,6 +42,9 @@ public class SignsController extends AbstractController {
             for(Object sign : groupSet.getValue()) {
                 LinkedTreeMap signObject = (LinkedTreeMap) sign;
                 Sign signModel = new Sign(signObject.get("sinal").toString());
+
+                Object images = signObject.get("imagens");
+                signModel.setImages(images == null ? null : images.toString());
 
                 signAdapter.add(signModel);
             }
@@ -61,9 +63,9 @@ public class SignsController extends AbstractController {
         return new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int pos, long id) {
-                final Model item = (Model) adapter.getItemAtPosition(pos);
+                final Object item = adapter.getItemAtPosition(pos);
 
-                Toast.makeText(activity, item.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, item.toString(), Toast.LENGTH_SHORT).show();
             }
         };
     }
