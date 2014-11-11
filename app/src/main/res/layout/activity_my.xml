@@ -8,13 +8,17 @@
     android:id="@+id/main_layout"
     android:padding="10dp">
 
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:id="@+id/content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/sample_image"/>
 
         <LinearLayout
             android:orientation="vertical"

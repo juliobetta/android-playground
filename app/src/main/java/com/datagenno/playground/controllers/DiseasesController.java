@@ -27,7 +27,7 @@ public class DiseasesController extends AbstractController {
     /**
      * Retrofit API
      */
-    public interface API {
+    private interface API {
         @GET("/diseases/{id}.json")
         void showDisease(
             @Path("id") String disease,

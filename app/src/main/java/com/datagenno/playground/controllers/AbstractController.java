@@ -13,7 +13,7 @@ import retrofit.RestAdapter;
  * Created by juliobetta on 10/31/14.
  */
 public abstract class AbstractController {
-    private final String BASEPATH = "http://www.datagenno.com";
+    private static final String BASEPATH = "http://www.datagenno.com";
     protected RestAdapter rest;
     protected final Activity activity;
     protected final ProgressDialog progress;
