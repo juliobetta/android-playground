@@ -5,8 +5,10 @@ import android.app.ProgressDialog;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.datagenno.playground.AppController;
 import com.datagenno.playground.R;
 
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
 /**
@@ -18,6 +20,18 @@ public abstract class AbstractController {
     protected final Activity activity;
     protected final ProgressDialog progress;
 
+
+    /**
+     * Add language param to each request
+     */
+    private static final RequestInterceptor COOKIES_REQUEST_INTERCEPTOR = new RequestInterceptor() {
+        @Override
+        public void intercept(RequestFacade request) {
+            request.addQueryParam("language", AppController.getLanguage());
+        }
+    };
+
+
     public AbstractController() {
         this.activity = null;
         this.progress = null;
@@ -25,8 +39,12 @@ public abstract class AbstractController {
 
     public AbstractController(Activity activity) {
         this.activity = activity;
-        this.rest     = new RestAdapter.Builder().setEndpoint(BASEPATH).build();
         this.progress = new ProgressDialog(this.activity);
+
+        this.rest = new RestAdapter.Builder()
+            .setEndpoint(BASEPATH)
+            .setRequestInterceptor(COOKIES_REQUEST_INTERCEPTOR)
+            .build();
 
         this.progress.setMessage(activity.getString(R.string.loading));
     }
