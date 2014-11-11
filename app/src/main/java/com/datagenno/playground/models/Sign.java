@@ -11,12 +11,12 @@ public class Sign extends Model {
     public Sign(String name) {
         this.sinal = name;
     }
-    public String id_sinal;
-    public String id_grupo;
-    public String sinal;
-    public String grupo;
-    public String imagens;
-    public String videos;
+    public String id_sinal = null;
+    public String id_grupo = null;
+    public String sinal    = null;
+    public String grupo    = null;
+    public String imagens  = null;
+    public String videos   = null;
 
     public String getId_sinal() {
         return id_sinal;
@@ -50,11 +50,11 @@ public class Sign extends Model {
         this.grupo = grupo;
     }
 
-    public String getImagens() {
+    public String getImages() {
         return imagens;
     }
 
-    public void setImagens(String imagens) {
+    public void setImages(String imagens) {
         this.imagens = imagens;
     }
 

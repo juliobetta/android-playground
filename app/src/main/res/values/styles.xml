@@ -5,4 +5,8 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Link">
+        <item name="android:color">@color/link_color</item>
+    </style>
+
 </resources>
