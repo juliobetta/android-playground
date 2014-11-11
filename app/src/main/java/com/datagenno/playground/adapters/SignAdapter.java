@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.datagenno.playground.R;
@@ -27,8 +28,9 @@ public class SignAdapter extends ArrayAdapter<Object> {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        final Object item    = items.get(position);
-              TextView text = null;
+        final Object item         = items.get(position);
+              TextView text       = null;
+              ImageView imageIcon = null;
 
         if(item != null) {
             LayoutInflater inflater =
@@ -42,17 +44,20 @@ public class SignAdapter extends ArrayAdapter<Object> {
                 // ... and remove click listeners
                 view = removeClickListenersFrom(view);
             } else if (item instanceof Sign) {
-                Sign sign = (Sign) item;
-                     view = inflater.inflate(R.layout.adapter_sign, parent, false);
-                     text = (TextView) view.findViewById(R.id.sign_name);
+                Sign sign      = (Sign) item;
+                     view      = inflater.inflate(R.layout.adapter_sign, parent, false);
+                     text      = (TextView) view.findViewById(R.id.sign_name);
+                     imageIcon = (ImageView) view.findViewById(R.id.image_icon);
 
-                if(sign.imagens != null) {
-                    text.setTextColor(getContext().getResources().getColor(R.color.link_color));
-                } else {
+                // remove click listeners if a sign doesn't have a image and video
+                if(sign.imagens == null && sign.videos == null) {
                     view = removeClickListenersFrom(view);
+                } else {
+                    text.setTextColor(getContext().getResources().getColor(R.color.link_color));
+                    imageIcon.setVisibility(View.VISIBLE);
                 }
             }
-;
+
             text.setText(item.toString());
         }
 
