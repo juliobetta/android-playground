@@ -2,14 +2,19 @@ package com.datagenno.playground.controllers;
 
 import android.app.Activity;
 
+import com.datagenno.playground.AppController;
 import com.datagenno.playground.models.Disease;
 import com.google.gson.internal.LinkedTreeMap;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.QueryMap;
 
 /**
  * Created by juliobetta on 10/31/14.
@@ -23,8 +28,12 @@ public class DiseasesController extends AbstractController {
      * Retrofit API
      */
     public interface API {
-        @GET("/diseases/{id}.json?language=pt_br")
-        void showDisease(@Path("id") String disease, Callback<Disease> callback);
+        @GET("/diseases/{id}.json")
+        void showDisease(
+            @Path("id") String disease,
+            @QueryMap Map<String, String> params,
+            Callback<Disease> callback
+        );
     }
 
 
@@ -37,6 +46,7 @@ public class DiseasesController extends AbstractController {
         this.service = this.rest.create(API.class);
     }
 
+
     /**
      * Show disease
      * @param path
@@ -44,7 +54,10 @@ public class DiseasesController extends AbstractController {
     public void show(String path) {
         progress.show();
 
-        this.service.showDisease(path, new Callback<Disease>() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("language", AppController.getLanguage());
+
+        this.service.showDisease(path, params, new Callback<Disease>() {
             @Override
             public void success(Disease disease, Response response) {
                 SignsController signsController = new SignsController(activity);

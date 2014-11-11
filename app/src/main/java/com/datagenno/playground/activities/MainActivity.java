@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.activeandroid.ActiveAndroid;
+import com.datagenno.playground.AppController;
 import com.datagenno.playground.R;
 
 
@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        ActiveAndroid.initialize(this);
+        AppController.getLanguage();
     }
 
 
