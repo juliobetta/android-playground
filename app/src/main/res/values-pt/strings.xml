@@ -10,5 +10,6 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="title_activity_disease">Sinais / Sintomas</string>
+    <string name="test_fragment">Test Fragment</string>
 
 </resources>

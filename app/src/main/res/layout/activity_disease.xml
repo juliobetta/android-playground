@@ -10,10 +10,18 @@
     android:id="@+id/container"
     tools:context="com.datagenno.playground.activities.DiseaseActivity">
 
-    <ListView
-        android:id="@+id/signsList"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.datagenno.playground.fragments.SignsFragment"
+        android:id="@+id/fragment_sign"
+        tools:layout="@layout/fragment_sign" />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.datagenno.playground.fragments.TestFragment"
+        android:id="@+id/fragment_test"
+        tools:layout="@layout/fragment_test" />
 </LinearLayout>

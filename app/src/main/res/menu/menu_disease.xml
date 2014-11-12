@@ -1,6 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.datagenno.playground.activities.DiseaseActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" android:showAsAction="never" />
+    <item
+        android:id="@+id/action_signs"
+        android:title="@string/title_activity_disease"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_test"
+        android:title="@string/test_fragment"
+        android:orderInCategory="200"
+        android:showAsAction="never" />
 </menu>

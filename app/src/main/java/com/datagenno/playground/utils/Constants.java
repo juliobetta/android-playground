@@ -8,7 +8,8 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
  * Created by juliobetta on 11/11/14.
  */
 public class Constants {
-    public static final String BASE_PATH = "http://www.datagenno.com/";
+    public static final String BASE_PATH     = "http://www.datagenno.com/";
+    public static final String EXTRA_MESSAGE = "com.datagenno.playground.MESSAGE";
 
     public static final DisplayImageOptions IMAGE_OPTIONS = new DisplayImageOptions.Builder()
         .cacheInMemory(true)
