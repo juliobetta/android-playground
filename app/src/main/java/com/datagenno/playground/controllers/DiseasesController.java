@@ -1,7 +1,6 @@
 package com.datagenno.playground.controllers;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.datagenno.playground.models.Disease;
 import com.google.gson.internal.LinkedTreeMap;
@@ -18,7 +17,6 @@ import retrofit.http.Path;
 public class DiseasesController extends AbstractController {
 
     private API service;
-
 
     /**
      * Retrofit API
@@ -49,9 +47,11 @@ public class DiseasesController extends AbstractController {
         this.service.showDisease(path, new Callback<Disease>() {
             @Override
             public void success(Disease disease, Response response) {
-                Log.d("DiseasesController", response.getUrl());
                 SignsController signsController = new SignsController(activity);
                 signsController.list((LinkedTreeMap) disease.signs);
+
+                activity.getActionBar().setTitle(disease.name);
+
                 progress.hide();
                 progress.dismiss();
             }

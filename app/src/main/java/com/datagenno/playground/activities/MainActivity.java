@@ -19,7 +19,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 
 public class MainActivity extends Activity {
-    public static final String EXTRA_MESSAGE = "com.datagenno.playground.MESSAGE";
     private final Context context = this;
 
     @Override
@@ -35,11 +34,11 @@ public class MainActivity extends Activity {
      * Get data from URL
      */
     public void getDisease(View view) {
-        EditText diseaseId  = (EditText) findViewById(R.id.diseaseId);
-        Intent   intent     = new Intent(this, DiseaseActivity.class);
-        String   path       = diseaseId.getText().toString();
+        EditText diseaseId = (EditText) findViewById(R.id.diseaseId);
+        Intent   intent    = new Intent(this, DiseaseActivity.class);
+        String   path      = diseaseId.getText().toString();
 
-        intent.putExtra(EXTRA_MESSAGE, path);
+        intent.putExtra(Constants.EXTRA_MESSAGE, path);
         startActivity(intent);
     }
 
