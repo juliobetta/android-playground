@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.datagenno.playground.AppController;
 import com.datagenno.playground.R;
+import com.datagenno.playground.utils.Constants;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -15,18 +16,17 @@ import retrofit.RestAdapter;
  * Created by juliobetta on 10/31/14.
  */
 public abstract class AbstractController {
-    private static final String BASEPATH = "http://www.datagenno.com";
     protected RestAdapter rest;
     protected final Activity activity;
     protected final ProgressDialog progress;
 
-
     /**
-     * Add language param to each request
+     * Include params on each api request
      */
     private static final RequestInterceptor REQUEST_INTERCEPTOR = new RequestInterceptor() {
         @Override
         public void intercept(RequestFacade request) {
+            // add language query param
             request.addQueryParam("language", AppController.getLanguage());
         }
     };
@@ -42,7 +42,7 @@ public abstract class AbstractController {
         this.progress = new ProgressDialog(this.activity);
 
         this.rest = new RestAdapter.Builder()
-            .setEndpoint(BASEPATH)
+            .setEndpoint(Constants.BASE_PATH)
             .setRequestInterceptor(REQUEST_INTERCEPTOR)
             .build();
 
